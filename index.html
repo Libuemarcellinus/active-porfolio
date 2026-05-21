@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Marcellinus Libue — Full Stack Developer & Digital Marketer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+  :root[data-theme="light"]{
+    --navy:#1A3C8F;
+    --cyan:#00C2FF;
+    --cyan-dim:rgba(0,194,255,0.10);
+    --cyan-border:rgba(0,194,255,0.3);
+    --text:#0f1420;
+    --text-mid:#4a5568;
+    --text-muted:#8896a6;
+    --surface:#f8f9fc;
+    --surface2:#eef1f8;
+    --white:#ffffff;
+    --border:rgba(26,60,143,0.1);
+    --hero-outline-color:var(--navy);
+    --card-bg:#ffffff;
+    --footer-bg:#ffffff;
+    --nav-bg:rgba(255,255,255,0.95);
+    --tag-bg:#eef1f8;
+    --tag-color:#1A3C8F;
+    --stat-num-color:#1A3C8F;
+    --hero-grid-opacity:0.4;
+  }
+
+  :root[data-theme="dark"]{
+    --navy:#5b8dee;
+    --cyan:#00C2FF;
+    --cyan-dim:rgba(0,194,255,0.10);
+    --cyan-border:rgba(0,194,255,0.25);
+    --text:#e8edf5;
+    --text-mid:#9aabb8;
+    --text-muted:#5f7082;
+    --surface:#111827;
+    --surface2:#1a2333;
+    --white:#0d1117;
+    --border:rgba(255,255,255,0.08);
+    --hero-outline-color:#e8edf5;
+    --card-bg:#161f2e;
+    --footer-bg:#0d1117;
+    --nav-bg:rgba(13,17,23,0.96);
+    --tag-bg:#1a2333;
+    --tag-color:#9aabb8;
+    --stat-num-color:#5b8dee;
+    --hero-grid-opacity:0.15;
+  }
+
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'DM Sans',sans-serif;
+    background:var(--white);
+    color:var(--text);
+    font-size:16px;
+    line-height:1.7;
+    transition:background 0.3s,color 0.3s;
+  }
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:1rem 2.5rem;
+    background:var(--nav-bg);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+    transition:background 0.3s,border-color 0.3s;
+  }
+  .nav-logo{
+    font-family:'Syne',sans-serif;
+    font-weight:700;font-size:1.1rem;
+    color:var(--text);
+    letter-spacing:-0.02em;
+    text-decoration:none;
+  }
+  .nav-logo span{color:var(--cyan)}
+  .nav-links{display:flex;gap:2rem;list-style:none}
+  .nav-links a{
+    font-size:0.875rem;font-weight:500;
+    color:var(--text-mid);text-decoration:none;
+    transition:color 0.2s;
+  }
+  .nav-links a:hover{color:var(--navy)}
+  .nav-right{display:flex;align-items:center;gap:0.75rem}
+  .theme-toggle{
+    width:38px;height:38px;border-radius:8px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    cursor:pointer;display:flex;align-items:center;justify-content:center;
+    color:var(--text-mid);
+    transition:all 0.2s;
+    font-size:1rem;
+    flex-shrink:0;
+  }
+  .theme-toggle:hover{border-color:var(--cyan-border);color:var(--cyan)}
+  .nav-cta{
+    font-size:0.875rem;font-weight:500;
+    padding:0.5rem 1.25rem;
+    background:var(--navy);color:#ffffff;
+    border:none;border-radius:6px;
+    cursor:pointer;text-decoration:none;
+    transition:opacity 0.2s;
+    display:inline-block;
+  }
+  .nav-cta:hover{opacity:0.85}
+
+  /* HERO */
+  .hero{
+    min-height:100vh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:6rem 2.5rem 4rem;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;inset:0;z-index:0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 30%, rgba(0,194,255,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(26,60,143,0.05) 0%, transparent 60%);
+  }
+  .hero-grid{
+    position:absolute;inset:0;z-index:0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size:60px 60px;
+    mask-image:radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    opacity:var(--hero-grid-opacity);
+    transition:opacity 0.3s;
+  }
+  .hero-content{position:relative;z-index:1;max-width:800px}
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:0.78rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;
+    color:var(--cyan);border:1px solid var(--cyan-border);
+    background:var(--cyan-dim);
+    padding:0.35rem 0.9rem;border-radius:100px;
+    margin-bottom:1.75rem;
+  }
+  .hero-badge::before{
+    content:'';width:6px;height:6px;border-radius:50%;
+    background:var(--cyan);animation:blink 2s ease-in-out infinite;
+  }
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+  h1{
+    font-family:'Syne',sans-serif;
+    font-size:clamp(3rem,7vw,5.5rem);
+    font-weight:800;line-height:1.0;
+    letter-spacing:-0.03em;
+    color:var(--text);
+    margin-bottom:1.5rem;
+  }
+  h1 em{
+    font-style:normal;
+    color:transparent;
+    -webkit-text-stroke:2px var(--hero-outline-color);
+    transition:-webkit-text-stroke-color 0.3s;
+  }
+  .hero-desc{
+    font-size:1.1rem;color:var(--text-mid);
+    max-width:560px;line-height:1.85;
+    margin-bottom:2.5rem;
+  }
+  .hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+  .btn-primary{
+    padding:0.8rem 2rem;background:var(--navy);color:#ffffff;
+    font-size:0.95rem;font-weight:500;
+    border:none;border-radius:8px;cursor:pointer;
+    text-decoration:none;transition:all 0.2s;
+    display:inline-block;
+  }
+  .btn-primary:hover{opacity:0.85;transform:translateY(-1px)}
+  .btn-outline{
+    padding:0.8rem 2rem;background:transparent;color:var(--text);
+    font-size:0.95rem;font-weight:500;
+    border:1.5px solid var(--border);border-radius:8px;cursor:pointer;
+    text-decoration:none;transition:all 0.2s;
+    display:inline-block;
+  }
+  .btn-outline:hover{border-color:var(--navy);color:var(--navy);transform:translateY(-1px)}
+  .hero-stats{
+    display:flex;gap:3rem;margin-top:4rem;
+    padding-top:2rem;border-top:1px solid var(--border);
+    flex-wrap:wrap;
+  }
+  .stat-num{
+    font-family:'Syne',sans-serif;
+    font-size:2.2rem;font-weight:800;
+    color:var(--stat-num-color);letter-spacing:-0.03em;
+    transition:color 0.3s;
+  }
+  .stat-num span{color:var(--cyan)}
+  .stat-label{font-size:0.78rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-top:0.2rem}
+
+  /* SECTIONS */
+  section{padding:6rem 2.5rem}
+  .section-tag{
+    font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--cyan);margin-bottom:0.75rem;
+  }
+  h2{
+    font-family:'Syne',sans-serif;
+    font-size:clamp(2rem,4vw,3rem);
+    font-weight:800;line-height:1.1;letter-spacing:-0.02em;
+    color:var(--text);margin-bottom:1rem;
+    transition:color 0.3s;
+  }
+  .section-intro{font-size:1rem;color:var(--text-mid);max-width:560px;margin-bottom:3.5rem}
+
+  /* SKILLS */
+  .skills-bg{background:var(--surface);transition:background 0.3s}
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:1.5rem;
+  }
+  .skill-card{
+    background:var(--card-bg);
+    border:1px solid var(--border);
+    border-radius:14px;padding:1.75rem;
+    transition:all 0.25s;
+    position:relative;overflow:hidden;
+  }
+  .skill-card::after{
+    content:'';position:absolute;
+    bottom:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,var(--navy),var(--cyan));
+    transform:scaleX(0);transform-origin:left;
+    transition:transform 0.3s;
+  }
+  .skill-card:hover{border-color:var(--cyan-border);transform:translateY(-3px)}
+  .skill-card:hover::after{transform:scaleX(1)}
+  .skill-icon{
+    width:44px;height:44px;border-radius:10px;
+    background:var(--cyan-dim);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:1rem;font-size:1.25rem;
+    border:1px solid var(--cyan-border);
+  }
+  .skill-card h3{
+    font-family:'Syne',sans-serif;
+    font-size:1rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;transition:color 0.3s;
+  }
+  .skill-card p{font-size:0.875rem;color:var(--text-mid);line-height:1.65}
+  .skill-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1rem}
+  .tag{
+    font-size:0.73rem;font-weight:500;
+    padding:0.25rem 0.65rem;border-radius:100px;
+    background:var(--tag-bg);color:var(--tag-color);
+    border:1px solid var(--border);
+    transition:all 0.2s;
+  }
+
+  /* PROJECTS */
+  .projects-grid{display:grid;gap:1.5rem}
+  .project-card{
+    background:var(--card-bg);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:2rem;
+    transition:all 0.25s;
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:1.5rem;
+    align-items:start;
+  }
+  .project-card:hover{border-color:var(--cyan-border);box-shadow:0 8px 32px rgba(0,194,255,0.07)}
+  .project-type{
+    font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+    color:var(--text-muted);margin-bottom:0.5rem;
+  }
+  .project-card h3{
+    font-family:'Syne',sans-serif;
+    font-size:1.3rem;font-weight:700;
+    color:var(--text);margin-bottom:0.6rem;
+    letter-spacing:-0.01em;transition:color 0.3s;
+  }
+  .project-card p{font-size:0.9rem;color:var(--text-mid);line-height:1.75;max-width:600px}
+  .project-stack{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1.25rem}
+  .stack-tag{
+    font-size:0.73rem;font-weight:500;
+    padding:0.25rem 0.65rem;border-radius:100px;
+    background:var(--cyan-dim);color:var(--cyan);
+    border:1px solid var(--cyan-border);
+  }
+  .project-link{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:0.8rem;font-weight:500;
+    color:var(--cyan);text-decoration:none;
+    padding:0.5rem 1rem;
+    border:1px solid var(--cyan-border);border-radius:6px;
+    background:var(--cyan-dim);
+    white-space:nowrap;transition:all 0.2s;
+    flex-shrink:0;height:fit-content;
+  }
+  .project-link:hover{background:var(--cyan);color:#0d1117;border-color:var(--cyan)}
+  .project-link svg{width:13px;height:13px}
+
+  /* EXPERIENCE */
+  .exp-bg{background:var(--surface);transition:background 0.3s}
+  .timeline{position:relative;padding-left:2rem;display:flex;flex-direction:column;gap:2.5rem}
+  .timeline::before{
+    content:'';position:absolute;left:0;top:8px;bottom:0;
+    width:1px;background:linear-gradient(to bottom,var(--navy),var(--cyan),transparent);
+  }
+  .timeline-item{position:relative}
+  .timeline-dot{
+    position:absolute;left:-2.4rem;top:6px;
+    width:12px;height:12px;border-radius:50%;
+    background:var(--card-bg);border:2px solid var(--border);
+    transition:all 0.2s;
+  }
+  .timeline-item:first-child .timeline-dot{background:var(--cyan);border-color:var(--cyan);box-shadow:0 0 0 4px var(--cyan-dim)}
+  .tl-meta{
+    display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:0.5rem;margin-bottom:0.25rem;
+  }
+  .tl-role{
+    font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;
+    color:var(--text);transition:color 0.3s;
+  }
+  .tl-period{
+    font-size:0.75rem;font-weight:500;letter-spacing:0.04em;
+    color:var(--text-muted);
+    background:var(--surface2);padding:0.2rem 0.75rem;
+    border-radius:100px;border:1px solid var(--border);
+  }
+  .tl-company{font-size:0.875rem;color:var(--cyan);font-weight:500;margin-bottom:0.7rem}
+  .tl-desc{font-size:0.9rem;color:var(--text-mid);line-height:1.75}
+
+  /* EDUCATION */
+  .edu-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:1.25rem;
+  }
+  .edu-card{
+    background:var(--card-bg);border:1px solid var(--border);
+    border-radius:12px;padding:1.5rem;
+    transition:all 0.2s;
+  }
+  .edu-card:hover{border-color:var(--cyan-border);transform:translateY(-2px)}
+  .edu-year{
+    font-size:0.73rem;font-weight:700;letter-spacing:0.07em;
+    color:var(--cyan);margin-bottom:0.5rem;text-transform:uppercase;
+  }
+  .edu-degree{
+    font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;
+    color:var(--text);margin-bottom:0.3rem;transition:color 0.3s;
+  }
+  .edu-school{font-size:0.85rem;color:var(--text-mid)}
+
+  /* CONTACT */
+  .contact-section{
+    background:linear-gradient(135deg,#0f1e4a 0%,#0d1117 50%,#0a2a3a 100%);
+    color:#ffffff;
+  }
+  .contact-inner{max-width:680px;margin:0 auto;text-align:center}
+  .contact-inner .section-tag{color:var(--cyan)}
+  .contact-inner h2{color:#ffffff}
+  .contact-inner .section-intro{color:rgba(255,255,255,0.6);margin:0 auto 2.5rem;text-align:center}
+  .contact-links{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem}
+  .contact-link{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:0.75rem 1.5rem;border-radius:8px;
+    font-size:0.875rem;font-weight:500;text-decoration:none;
+    color:rgba(255,255,255,0.85);
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.12);
+    transition:all 0.2s;
+  }
+  .contact-link:hover{background:rgba(0,194,255,0.15);border-color:rgba(0,194,255,0.4);color:#00C2FF}
+  .contact-link svg{width:16px;height:16px;flex-shrink:0}
+
+  /* FOOTER */
+  footer{
+    padding:2rem 2.5rem;
+    border-top:1px solid var(--border);
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+    background:var(--footer-bg);
+    transition:background 0.3s,border-color 0.3s;
+  }
+  footer p{font-size:0.8rem;color:var(--text-muted)}
+  .footer-logo{
+    font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;color:var(--text);
+    transition:color 0.3s;
+  }
+  .footer-logo span{color:var(--cyan)}
+
+  /* RESPONSIVE */
+  @media(max-width:768px){
+    nav{padding:0.875rem 1.25rem}
+    .nav-links{display:none}
+    section{padding:4rem 1.25rem}
+    .hero{padding:5rem 1.25rem 3rem}
+    .project-card{grid-template-columns:1fr}
+    .hero-stats{gap:1.75rem}
+    footer{padding:1.5rem 1.25rem}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">ML<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeBtn" aria-label="Toggle dark mode">🌙</button>
+    <a href="mailto:libuemarcellinus@gmail.com" class="nav-cta">Get in touch</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Available for work &nbsp;·&nbsp; Lagos, Nigeria</div>
+    <h1>Marcellinus<br><em>Libue.</em></h1>
+    <p class="hero-desc">
+      Full stack web developer and digital marketing practitioner. I build things from scratch — frontend, backend, database, and deployment — and I know how to get people to actually find them.
+    </p>
+    <div class="hero-actions">
+      <a href="#work" class="btn-primary">See my work</a>
+      <a href="https://www.linkedin.com/in/marcellinus-libue" target="_blank" class="btn-outline">LinkedIn ↗</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">5<span>+</span></div>
+        <div class="stat-label">Years building for clients</div>
+      </div>
+      <div>
+        <div class="stat-num">3<span>+</span></div>
+        <div class="stat-label">Live client sites</div>
+      </div>
+      <div>
+        <div class="stat-num">2</div>
+        <div class="stat-label">Active product builds</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="skills-bg">
+  <div class="section-tag">What I work with</div>
+  <h2>Skills & tools</h2>
+  <p class="section-intro">I cover both sides of a project — the code that runs it and the strategy that markets it.</p>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">🖥️</div>
+      <h3>Frontend development</h3>
+      <p>Semantic HTML, CSS that actually makes sense, and JavaScript written clean. I build responsive layouts from scratch without relying on component libraries to do the thinking.</p>
+      <div class="skill-tags">
+        <span class="tag">HTML5 & CSS3</span>
+        <span class="tag">JavaScript (ES6+)</span>
+        <span class="tag">React</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">Tailwind CSS</span>
+        <span class="tag">Vite</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⚙️</div>
+      <h3>Backend & databases</h3>
+      <p>PHP and MySQL from scratch — no frameworks, no magic. I understand what's actually happening on the server side and build custom backends to match what a project needs.</p>
+      <div class="skill-tags">
+        <span class="tag">PHP</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">REST APIs</span>
+        <span class="tag">WordPress</span>
+        <span class="tag">Server deployment</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📈</div>
+      <h3>Digital marketing</h3>
+      <p>Managed campaigns, tracked performance, and worked with analytics daily — not as an add-on, but as a core part of how I approach building for the web.</p>
+      <div class="skill-tags">
+        <span class="tag">Google Ads</span>
+        <span class="tag">Google Analytics</span>
+        <span class="tag">SEO</span>
+        <span class="tag">Social media</span>
+        <span class="tag">Email marketing</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🎨</div>
+      <h3>Design & tools</h3>
+      <p>Enough design skill to build things that look right without a designer in the room — plus the tools to match.</p>
+      <div class="skill-tags">
+        <span class="tag">Canva</span>
+        <span class="tag">CorelDraw</span>
+        <span class="tag">Photoshop</span>
+        <span class="tag">Responsive design</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="work">
+  <div class="section-tag">Projects</div>
+  <h2>Things I've built</h2>
+  <p class="section-intro">Client work and personal builds — each one handled end to end.</p>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div>
+        <div class="project-type">Client project · 2025</div>
+        <h3>Dr Lawiz Luxury Apartments & Homes</h3>
+        <p>A full shortlet rental platform built for a paying client. Property listings, a booking flow, and an admin management layer — all written from scratch in PHP and MySQL, no CMS, no framework shortcuts. Branding, UI, database design, and hosting handled independently.</p>
+        <div class="project-stack">
+          <span class="stack-tag">PHP</span>
+          <span class="stack-tag">MySQL</span>
+          <span class="stack-tag">HTML & CSS</span>
+          <span class="stack-tag">JavaScript</span>
+        </div>
+      </div>
+      <a href="https://drlawizapartments.com" target="_blank" class="project-link">
+        View site
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </div>
+
+    <div class="project-card">
+      <div>
+        <div class="project-type">Client project · 2024</div>
+        <h3>Yawel Alum Tech</h3>
+        <p>Business website for an aluminium technology company. Covered the full process — design, content structure, and deployment. Built on WordPress with custom HTML and CSS work to get the look right.</p>
+        <div class="project-stack">
+          <span class="stack-tag">WordPress</span>
+          <span class="stack-tag">HTML & CSS</span>
+        </div>
+      </div>
+      <a href="https://yawelalumtech.ng" target="_blank" class="project-link">
+        View site
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </div>
+
+    <div class="project-card">
+      <div>
+        <div class="project-type">Client project</div>
+        <h3>SureHands Naija</h3>
+        <p>A marketplace that connects clients with verified, reliable artisans across Lekki, Victoria Island, Ikoyi, Ajah, and surrounding areas — and gives skilled artisans a way to reach real customers actively looking for their services. Built to serve both sides of that connection cleanly.</p>
+        <div class="project-stack">
+          <span class="stack-tag">PHP</span>
+          <span class="stack-tag">MySQL</span>
+          <span class="stack-tag">HTML & CSS</span>
+          <span class="stack-tag">JavaScript</span>
+        </div>
+      </div>
+      <a href="https://surehandsnaija.com" target="_blank" class="project-link">
+        View site
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </div>
+
+    <div class="project-card">
+      <div>
+        <div class="project-type">Personal build · 2024 – present</div>
+        <h3>SoulSpace</h3>
+        <p>An anonymous emotional sharing platform, currently in active development. I own the entire frontend — component architecture, routing, state management, and UI. Consuming a backend API built by a separate developer and deployed on Vercel.</p>
+        <div class="project-stack">
+          <span class="stack-tag">React</span>
+          <span class="stack-tag">TypeScript</span>
+          <span class="stack-tag">Vite</span>
+          <span class="stack-tag">Tailwind CSS</span>
+          <span class="stack-tag">REST API</span>
+        </div>
+      </div>
+      <a href="https://github.com/Libuemarcellinus" target="_blank" class="project-link">
+        GitHub
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="exp-bg">
+  <div class="section-tag">Background</div>
+  <h2>Experience</h2>
+  <p class="section-intro">Work that spans building, marketing, and teaching — each one sharpened something different.</p>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-meta">
+        <div class="tl-role">Founder & Web Developer</div>
+        <div class="tl-period">May 2020 – present</div>
+      </div>
+      <div class="tl-company">CID Solutions — Lagos</div>
+      <div class="tl-desc">Running the full project pipeline solo — client briefs, design, frontend, backend, and deployment across multiple live sites. Writing PHP and MySQL from scratch for custom requirements keeps the understanding of core logic sharp; no framework doing the heavy lifting behind the scenes.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-meta">
+        <div class="tl-role">Digital Marketing Manager</div>
+        <div class="tl-period">Jun 2023 – Nov 2025</div>
+      </div>
+      <div class="tl-company">Hanuel Homes — Lagos</div>
+      <div class="tl-desc">Managed the company's digital presence — website content, campaign tracking via Google Analytics, and performance reporting. Working with web platforms and data daily built a practical understanding of how digital behaviour actually translates to business results.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-meta">
+        <div class="tl-role">Computer Instructor</div>
+        <div class="tl-period">Nov 2021 – Oct 2023</div>
+      </div>
+      <div class="tl-company">Spring Infotech Lab — Lagos</div>
+      <div class="tl-desc">Taught computing and software skills across different student levels. Explaining technical concepts clearly to people at different starting points is a habit that transfers directly to working in a team.</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section>
+  <div class="section-tag">Education</div>
+  <h2>Training</h2>
+  <p class="section-intro">Formal credentials plus the practical kind — built alongside real projects.</p>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-year">2025 – 2026</div>
+      <div class="edu-degree">Diploma in Web Development</div>
+      <div class="edu-school">NIIT — Lagos</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">2021</div>
+      <div class="edu-degree">Diploma in Digital Marketing</div>
+      <div class="edu-school">Triple Internet — Lagos</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="contact-inner">
+    <div class="section-tag">Let's talk</div>
+    <h2>Have a project in mind?</h2>
+    <p class="section-intro">
+      Whether it's a new site, an existing one that needs work, or a digital marketing push — reach out. I handle projects from brief to launch and I'm based in Lagos.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:libuemarcellinus@gmail.com" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        libuemarcellinus@gmail.com
+      </a>
+      <a href="tel:+2347053312959" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 5.91 5.91l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +234 705 331 2959
+      </a>
+      <a href="https://www.linkedin.com/in/marcellinus-libue" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/Libuemarcellinus" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Marcellinus Libue<span>.</span></div>
+  <p>Full stack developer & digital marketer &nbsp;·&nbsp; Lagos, Nigeria</p>
+</footer>
+
+<script>
+  const btn = document.getElementById('themeBtn');
+  const root = document.documentElement;
+  const saved = localStorage.getItem('theme') || 'light';
+  root.setAttribute('data-theme', saved);
+  btn.textContent = saved === 'dark' ? '☀️' : '🌙';
+
+  btn.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    btn.textContent = next === 'dark' ? '☀️' : '🌙';
+  });
+</script>
+
+</body>
+</html>

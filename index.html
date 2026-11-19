@@ -98,6 +98,22 @@
       color: var(--text-muted); font-weight: 500;
     }
     .hero .bio { margin-top: 24px; max-width: 64ch; color: var(--text); font-size: 1.0625rem; }
+    /* Photo: stacked above the text on mobile, to the right on desktop */
+    .hero-inner { display: flex; flex-direction: column; gap: 24px; }
+    .hero-text { min-width: 0; }
+    .hero-photo {
+      order: -1;
+      flex-shrink: 0;
+      width: 120px; height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #007AAA;
+      background: var(--surface);
+    }
+    @media (min-width: 640px) {
+      .hero-inner { flex-direction: row; align-items: flex-start; justify-content: space-between; gap: 40px; }
+      .hero-photo { order: 0; width: 160px; height: 160px; }
+    }
     .hero-actions { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
     .btn {
       display: inline-flex; align-items: center; justify-content: center;
@@ -214,7 +230,8 @@
   <main id="main">
     <!-- ===== About ===== -->
     <div class="hero" id="top">
-      <div class="wrap" id="about">
+      <div class="wrap hero-inner" id="about">
+        <div class="hero-text">
         <p class="eyebrow">// Lagos, Nigeria</p>
         <h1>Marcellinus Libue</h1>
         <p class="role">Full-stack web developer &amp; digital marketer</p>
@@ -223,6 +240,8 @@
           <a class="btn btn-primary" href="#work">View projects</a>
           <a class="btn btn-ghost" href="mailto:libuemarcellinus@gmail.com">Get in touch</a>
         </div>
+        </div>
+        <img class="hero-photo" src="profile.jpeg" alt="Marcellinus Libue" width="160" height="160">
       </div>
     </div>
 
